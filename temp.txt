@@ -107,7 +107,7 @@
     
     <script>
         // Retrieve player data from the server
-        //const getPlayerData = () => {
+        const getPlayerData = () => {
             fetch('/players')
                 .then(response => response.json())
                 .then(players => {
@@ -124,8 +124,8 @@
                     });
                 })
                 .catch(error => console.error('Error fetching player data:', error));
-        //}
-        //getPlayerData()
+        }
+        getPlayerData()
 
         // Handle "Shuffle Teams" button click
         const shuffledTeamsContainer = document.querySelector('#shuffled-teams-container');

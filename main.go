@@ -29,12 +29,12 @@ func main() {
 	}
 	defer file.Close()
 
-	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/players", playerHandler)
 	http.HandleFunc("/shuffle", shuffleHandlers)
 	http.HandleFunc("/register", registerHandlers)
-	fmt.Println("Server started on port 8080")
-	http.ListenAndServe(":8080", nil)
+	http.HandleFunc("/", indexHandler)
+	fmt.Println("Server started on port 8000")
+	http.ListenAndServe(":8000", nil)
 
 }
 func indexHandler(w http.ResponseWriter, r *http.Request) {
@@ -87,21 +87,21 @@ func shuffleHandlers(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(team)
 }
 
-//	func Shuffle(file *os.File)map[string]string {
-//		strikers, defenders, err := ReadTeams(file)
-//		if err != nil {
-//			log.Fatal(err)
-//		}
-//		rand.Seed(time.Now().UnixNano())
-//		rand.Shuffle(len(defenders), func(i, j int) {
-//			defenders[i], defenders[j] = defenders[j], defenders[i]
-//		})
-//		team := make(map[string]string)
-//		for i := 0; i < len(strikers); i++ {
-//			team[strikers[i]] = defenders[i]
-//		}
-//		return team
-//	}
+	func Shuffle(file *os.File)map[string]string {
+		strikers, defenders, err := ReadTeams(file)
+		if err != nil {
+			log.Fatal(err)
+		}
+		rand.Seed(time.Now().UnixNano())
+		rand.Shuffle(len(defenders), func(i, j int) {
+			defenders[i], defenders[j] = defenders[j], defenders[i]
+		})
+		team := make(map[string]string)
+		for i := 0; i < len(strikers); i++ {
+			team[strikers[i]] = defenders[i]
+		}
+		return team
+	}
 func ReadTeams(file *os.File) ([]string, []string, error) {
 	var striker []string
 	var defender []string
@@ -126,8 +126,8 @@ func ReadTeams(file *os.File) ([]string, []string, error) {
 }
 
 func registerHandlers(w http.ResponseWriter, r *http.Request) {
-	role := "Striker"
-	name := "Gdfr"
+	role := r.FormValue("role")
+	name := r.FormValue("name")
 	fmt.Println(role + " " + name)
 	if role == "" || name == "" {
 		w.WriteHeader(http.StatusBadRequest)
