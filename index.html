@@ -101,42 +101,78 @@
             </select>
             <input type="text" id="name" name="name">
             <!--<button hx-post="/register" hx-target="#screen">Print</button>-->
-            <button  hx-post="/register" hx-target="#players-table tbody" hx-swap="afterend" _="on htmx:afterSwap htmx-logger">Add New Player</button>
+            <button onclick="reloadPage()"  hx-post="/register" hx-target="#players-table tbody" hx-swap="afterend" _="on htmx:afterSwap htmx-logger">Add New Player</button>
         </form>
     </div>
     
     <script>
-        // Retrieve player data from the server
-        //const getPlayerData = () => {
-            fetch('/players')
-                .then(response => response.json())
-                .then(players => {
-                    const playersTableBody = document.querySelector('#players-table tbody');
-                    players.forEach(player => {
-                        const row = document.createElement('tr');
-                        const roleCell = document.createElement('td');
-                        roleCell.textContent = player.role;
-                        const nameCell = document.createElement('td');
-                        nameCell.textContent = player.name;
-                        row.appendChild(roleCell);
-                        row.appendChild(nameCell);
-                        playersTableBody.appendChild(row);
-                    });
-                })
-                .catch(error => console.error('Error fetching player data:', error));
-        //}
-        //getPlayerData()
+          function reloadPage() {
+        window.location.reload(); // Reload the page
+    }
+          // Function to handle form submission
+    const handleFormSubmit = (event) => {
+        event.preventDefault(); // Prevent the default form submission
 
+        // Extract form data
+        const form = event.target;
+        const formData = new FormData(form);
+
+        // Send a POST request to the server with form data
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(player => {
+            // Create a new row for the player
+            const playersTableBody = document.querySelector('#players-table tbody');
+            const row = document.createElement('tr');
+            const roleCell = document.createElement('td');
+            roleCell.textContent = player.role;
+            const nameCell = document.createElement('td');
+            nameCell.textContent = player.name;
+            row.appendChild(roleCell);
+            row.appendChild(nameCell);
+
+            // Insert the new row at the end of the table
+            playersTableBody.appendChild(row);
+        })
+        .catch(error => console.error('Error adding new player:', error));
+
+        // Clear the form fields after submission
+        form.reset();
+    };
+
+    // Attach the handleFormSubmit function to the form submission event
+    document.getElementById('register-form').addEventListener('submit', handleFormSubmit);
+    
+        // Retrieve player data from the server on page load
+        fetch('/players')
+            .then(response => response.json())
+            .then(players => {
+                const playersTableBody = document.querySelector('#players-table tbody');
+                players.forEach(player => {
+                    const row = document.createElement('tr');
+                    const roleCell = document.createElement('td');
+                    roleCell.textContent = player.role;
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = player.name;
+                    row.appendChild(roleCell);
+                    row.appendChild(nameCell);
+                    playersTableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching player data:', error));
+    
         // Handle "Shuffle Teams" button click
         const shuffledTeamsContainer = document.querySelector('#shuffled-teams-container');
-
         document.getElementById('shuffle-button').addEventListener('click', () => {
             fetch('/shuffle')
                 .then(response => response.json())
                 .then(teams => {
                     const shuffledTeamsTableBody = document.querySelector('#shuffled-teams-table tbody');
                     shuffledTeamsTableBody.innerHTML = ''; // Clear previous data
-
+    
                     teams.forEach(team => {
                         const row = document.createElement('tr');
                         const strikerCell = document.createElement('td');
@@ -147,12 +183,12 @@
                         row.appendChild(defenderCell);
                         shuffledTeamsTableBody.appendChild(row);
                     });
-
+    
                     shuffledTeamsContainer.style.display = 'block';
                 })
                 .catch(error => console.error('Error fetching shuffled teams:', error));
         });
-        htmx.logAll();
     </script>
+    
 </body>
 </html>

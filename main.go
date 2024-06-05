@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"sync"
 	"text/template"
 	"time"
 )
@@ -21,6 +22,8 @@ type Teams struct {
 	Striker  string `json:"striker"`
 	Defender string `json:"defender"`
 }
+
+var mu sync.Mutex
 
 func main() {
 	file, err := os.Open("teams.txt")
@@ -60,6 +63,8 @@ func playerHandler(w http.ResponseWriter, r *http.Request) {
 		allplayer = append(allplayer, Player{Role: "Striker", Name: ch})
 
 	}
+
+	fmt.Println(allplayer)
 	w.Header().Set("content-type", "application/json")
 	json.NewEncoder(w).Encode(allplayer)
 }
@@ -87,21 +92,21 @@ func shuffleHandlers(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(team)
 }
 
-	func Shuffle(file *os.File)map[string]string {
-		strikers, defenders, err := ReadTeams(file)
-		if err != nil {
-			log.Fatal(err)
-		}
-		rand.Seed(time.Now().UnixNano())
-		rand.Shuffle(len(defenders), func(i, j int) {
-			defenders[i], defenders[j] = defenders[j], defenders[i]
-		})
-		team := make(map[string]string)
-		for i := 0; i < len(strikers); i++ {
-			team[strikers[i]] = defenders[i]
-		}
-		return team
-	}
+// func Shuffle(file *os.File)map[string]string {
+// 	strikers, defenders, err := ReadTeams(file)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	rand.Seed(time.Now().UnixNano())
+// 	rand.Shuffle(len(defenders), func(i, j int) {
+// 		defenders[i], defenders[j] = defenders[j], defenders[i]
+// 	})
+// 	team := make(map[string]string)
+// 	for i := 0; i < len(strikers); i++ {
+// 		team[strikers[i]] = defenders[i]
+// 	}
+// 	return team
+// }
 func ReadTeams(file *os.File) ([]string, []string, error) {
 	var striker []string
 	var defender []string
@@ -119,9 +124,9 @@ func ReadTeams(file *os.File) ([]string, []string, error) {
 			log.Fatal(err)
 		}
 	}
-	if len(striker) == 0 || len(defender) == 0 || len(striker) != len(defender) {
-		return striker, defender, fmt.Errorf("number of strikers and defenders are not equal")
-	}
+	// if len(striker) == 0 || len(defender) == 0 || len(striker) != len(defender) {
+	// 	return striker, defender, fmt.Errorf("number of strikers and defenders are not equal")
+	// }
 	return striker, defender, nil
 }
 
@@ -133,6 +138,7 @@ func registerHandlers(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
+
 	line := fmt.Sprintf("\n%s: %s", role, name)
 
 	file, err := os.OpenFile("teams.txt", os.O_APPEND|os.O_WRONLY, 0644)
@@ -147,5 +153,12 @@ func registerHandlers(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to write to file", http.StatusInternalServerError)
 		return
 	}
+	// players := []Player{}
+	mu.Lock()
+	player := Player{Role: role, Name: name}
+	mu.Unlock()
+	w.Header().Set("content-type", "application.json")
+	json.NewEncoder(w).Encode(player)
+	// http.Redirect(w, r, "/", http.StatusSeeOther)
 
 }
