@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"sync"
 
-	"bravian1/team-shuffler/core"
-	"bravian1/team-shuffler/types"
+	"bravian1/team-shuffler/src/core"
+	"bravian1/team-shuffler/src/types"
 )
 
 func Register(mutex *sync.Mutex) http.HandlerFunc {

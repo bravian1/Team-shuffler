@@ -3,12 +3,11 @@ package core
 import (
 	"log"
 	"math/rand"
-	"os"
 	"time"
 )
 
-func Shuffle(file *os.File) map[string]string {
-	strikers, defenders, err := ReadTeams(file)
+func Shuffle(filename string) map[string]string {
+	strikers, defenders, err := ReadTeams(filename)
 	if err != nil {
 		log.Fatal(err)
 	}

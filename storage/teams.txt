@@ -22,7 +22,6 @@ Striker: Mia
 Defender: Grace
 Striker: Daniel
 Defender: Andrew
-
 Striker: rs
 Striker: wayne
 Defender: ray

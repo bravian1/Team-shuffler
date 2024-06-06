@@ -1,28 +1,29 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"sync"
 
-	handler "bravian1/team-shuffler/routes"
+	"bravian1/team-shuffler/src/core"
+	handler "bravian1/team-shuffler/src/routes"
 )
 
 func main() {
-	mutex :=  &sync.Mutex{}
-
-	file, err := os.Open("teams.txt")
-	if err != nil {
-		log.Fatal(err)
+	result, success := core.OpenOrCreate("teams.txt")
+	if !success {
+		log.Fatalf(result)
+	} else {
+		println("Successfully created or opened: ", result)
 	}
-	defer file.Close()
+
+	mutex := &sync.Mutex{}
 
 	http.HandleFunc("/players", handler.Players)
 	http.HandleFunc("/shuffle", handler.Shuffle)
 	http.HandleFunc("/register", handler.Register(mutex))
 	http.HandleFunc("/", handler.Index)
-	fmt.Println("Server started on port 8000")
+
+	print("\n\n\tServer started on port 8000\n\n")
 	http.ListenAndServe(":8000", nil)
 }

@@ -6,20 +6,14 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	"os"
 	"time"
 
-	"bravian1/team-shuffler/core"
-	"bravian1/team-shuffler/types"
+	"bravian1/team-shuffler/src/core"
+	"bravian1/team-shuffler/src/types"
 )
 
 func Shuffle(w http.ResponseWriter, r *http.Request) {
-	file, err := os.Open("teams.txt")
-	if err != nil {
-		http.Error(w, "File not found", http.StatusNotFound)
-	}
-	defer file.Close()
-	strikers, defenders, err := core.ReadTeams(file)
+	strikers, defenders, err := core.ReadTeams("teams.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
