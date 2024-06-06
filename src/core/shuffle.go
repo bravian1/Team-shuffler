@@ -1,23 +1,14 @@
 package core
 
 import (
-	"log"
 	"math/rand"
 	"time"
 )
 
-func Shuffle(filename string) map[string]string {
-	strikers, defenders, err := ReadTeams(filename)
-	if err != nil {
-		log.Fatal(err)
-	}
+func Shuffle(arr []string) []string {
 	rand.New(rand.NewSource(time.Now().UnixNano()))
-	rand.Shuffle(len(defenders), func(i, j int) {
-		defenders[i], defenders[j] = defenders[j], defenders[i]
+	rand.Shuffle(len(arr), func(i, j int) {
+		arr[i], arr[j] = arr[j], arr[i]
 	})
-	team := make(map[string]string)
-	for i := 0; i < len(strikers); i++ {
-		team[strikers[i]] = defenders[i]
-	}
-	return team
+	return arr
 }

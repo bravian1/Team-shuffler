@@ -20,10 +20,11 @@ func main() {
 	mutex := &sync.Mutex{}
 
 	http.HandleFunc("/players", handler.Players)
-	http.HandleFunc("/shuffle", handler.Shuffle)
+	http.HandleFunc("/fixtures", handler.Fixtures)
+	http.HandleFunc("/shuffle", handler.Shuffle(mutex))
 	http.HandleFunc("/register", handler.Register(mutex))
 	http.HandleFunc("/", handler.Index)
 
 	print("\n\n\tServer started on port 8000\n\n")
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(":8080", nil)
 }

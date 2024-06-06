@@ -83,6 +83,7 @@
         <table id="shuffled-teams-table">
             <thead>
                 <tr>
+                    <th>Team</th>
                     <th>Striker</th>
                     <th>Defender</th>
                 </tr>
@@ -175,10 +176,13 @@
     
                     teams.forEach(team => {
                         const row = document.createElement('tr');
+                        const teamCell = document.createElement('td');
+                        teamCell.textContent = team.name;
                         const strikerCell = document.createElement('td');
                         strikerCell.textContent = team.striker;
                         const defenderCell = document.createElement('td');
                         defenderCell.textContent = team.defender;
+                        row.appendChild(teamCell);
                         row.appendChild(strikerCell);
                         row.appendChild(defenderCell);
                         shuffledTeamsTableBody.appendChild(row);

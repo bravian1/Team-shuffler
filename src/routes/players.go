@@ -10,7 +10,7 @@ import (
 )
 
 func Players(w http.ResponseWriter, r *http.Request) {
-	strikers, defenders, err := core.ReadTeams("teams.txt")
+	strikers, defenders, err := core.ReadTeams("players.txt")
 	if err != nil {
 		http.Error(w, "Error reading users", http.StatusInternalServerError)
 		return

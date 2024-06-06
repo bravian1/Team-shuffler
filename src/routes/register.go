@@ -25,7 +25,7 @@ func Register(mutex *sync.Mutex) http.HandlerFunc {
 		successWrite := false
 		// use a goroutine to avoid blocking other requests while satifying an IO bound process
 		go func() {
-			successWrite = core.WriteLine(mutex, "teams.txt", line)
+			successWrite = core.WriteStringToFile(mutex, "players.txt", line)
 		}()
 
 		if !successWrite {
@@ -33,10 +33,8 @@ func Register(mutex *sync.Mutex) http.HandlerFunc {
 			return
 		}
 
-		// players := []Player{}
 		player := types.Player{Role: role, Name: name}
 		w.Header().Set("content-type", "application.json")
 		json.NewEncoder(w).Encode(player)
-		// http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
 }
