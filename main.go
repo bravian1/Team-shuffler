@@ -10,18 +10,11 @@ import (
 	"os"
 	"strings"
 	"sync"
-	"text/template"
 	"time"
-)
 
-type Player struct {
-	Name string `json:"name"`
-	Role string `json:"role"`
-}
-type Teams struct {
-	Striker  string `json:"striker"`
-	Defender string `json:"defender"`
-}
+	"bravian1/team-shuffler/types"
+	handler "bravian1/team-shuffler/routes"
+)
 
 var mu sync.Mutex
 
@@ -35,15 +28,12 @@ func main() {
 	http.HandleFunc("/players", playerHandler)
 	http.HandleFunc("/shuffle", shuffleHandlers)
 	http.HandleFunc("/register", registerHandlers)
-	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/", handler.Index)
 	fmt.Println("Server started on port 8000")
 	http.ListenAndServe(":8000", nil)
+}
 
-}
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("index.html"))
-	tmpl.Execute(w, nil)
-}
+
 func playerHandler(w http.ResponseWriter, r *http.Request) {
 	file, err := os.Open("teams.txt")
 	if err != nil {
@@ -54,13 +44,13 @@ func playerHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "server error", http.StatusInternalServerError)
 	}
-	allplayer := []Player{}
+	allplayer := []types.Player{}
 	for _, ch := range defenders {
-		allplayer = append(allplayer, Player{Role: "Defender", Name: ch})
+		allplayer = append(allplayer, types.Player{Role: "Defender", Name: ch})
 
 	}
 	for _, ch := range strikers {
-		allplayer = append(allplayer, Player{Role: "Striker", Name: ch})
+		allplayer = append(allplayer, types.Player{Role: "Striker", Name: ch})
 
 	}
 
@@ -82,9 +72,9 @@ func shuffleHandlers(w http.ResponseWriter, r *http.Request) {
 	rand.Shuffle(len(defenders), func(i, j int) {
 		defenders[i], defenders[j] = defenders[j], defenders[i]
 	})
-	team := []Teams{}
+	team := []types.Teams{}
 	for i := 0; i < len(strikers); i++ {
-		team = append(team, Teams{Striker: strikers[i], Defender: defenders[i]})
+		team = append(team, types.Teams{Striker: strikers[i], Defender: defenders[i]})
 	}
 	fmt.Println(team)
 
@@ -155,7 +145,7 @@ func registerHandlers(w http.ResponseWriter, r *http.Request) {
 	}
 	// players := []Player{}
 	mu.Lock()
-	player := Player{Role: role, Name: name}
+	player := types.Player{Role: role, Name: name}
 	mu.Unlock()
 	w.Header().Set("content-type", "application.json")
 	json.NewEncoder(w).Encode(player)
