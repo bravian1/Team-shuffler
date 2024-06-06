@@ -39,3 +39,5 @@ Striker: mass
 Striker: bolt
 Striker: teen
 Striker: be
+Striker: Malia
+Striker: Micky Ecko

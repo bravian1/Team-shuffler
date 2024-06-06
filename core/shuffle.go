@@ -12,7 +12,6 @@ func Shuffle(file *os.File) map[string]string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//rand.Seed(time.Now().UnixNano()) DEPRECATED
 	rand.New(rand.NewSource(time.Now().UnixNano()))
 	rand.Shuffle(len(defenders), func(i, j int) {
 		defenders[i], defenders[j] = defenders[j], defenders[i]
