@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="static/styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <header class="top">
+        <div class="top-1">
+            <img src="static/istockphoto-898541222-1024x1024.jpg" alt="Logo" class="limg">
+            <nav>
+                <a href="#">FuseBall league</a>
+            </nav>
+        </div>
+        <div class="top-2">
+            <a href="#" >Login</a>
+            <a href="#" >Sign in</a>
+        </div>
+    </header>
+    <nav class="top2">
+        <div class="top2-1">
+            <a href="#" >Home</a>
+            <a href="#" hx-get="/toroot" hx-trigger="click" hx-target="body" >Fixtures</a>
+            <a href="#" >Results</a>
+            <a href="#" >Tables</a>     
+            <a href="#" >News</a>
+            <a href="#" >Players</a>
+            <a href="#" >Awards</a>
+            <a href="#" >Pre-season friendlies</a>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="leftcolumn">
+          <div class="card1">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="py-2">Pos</th>
+                        <th class="py-2">Player</th>
+                        <th class="py-2">Pl</th>
+                        <th class="py-2">GD</th>
+                        <th class="py-2">Pts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-1">1</td>
+                        <td class="py-1">Raymond</td>
+                        <td class="py-1">20</td>
+                        <td class="py-1">50</td>
+                        <td class="py-1">50</td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="rightcolumn">
+          <div class="card">
+            <img class="fakeimg1" src="static/mpho-mojapelo-UHDx3BHlFvY-unsplash.jpg">
+            <p>Feature</p>
+            <h3>Why Tosin is a perfect fit for Maresca's philosophy at Chelsea</h3>
+            <p>Alex Keble analyses Blues' new centre-back as he moves across west London from Fulham</p>
+          </div>
+          <div class="card">
+            <div class="card-container">
+                <div class="card-container1">
+           
+                        
+                        <img class="fakeimg3" src="static/kelly-sikkema-ehzHvVk0dAw-unsplash.jpg">
+                        <div class="hover-text">Welcome to Foosball!</div>
+                    
+ 
+                </div>
+                <div class="card-container1">
+                   
+                        <img class="fakeimg3" src="static/kelly-sikkema-ehzHvVk0dAw-unsplash.jpg">
+                        <div class="hover-text">Welcome to Foosball!</div>
+                   
+                </div>
+            </div>
+           
+          </div>
+         
+        </div>
+      </div>
+</body>
+</html>
