@@ -28,11 +28,15 @@ func main() {
 	config, success := core.ReadConfig()
 	if !success {
 		log.Fatalf("Unable to read cofniguration file.\n Using default port: %d\n", PORT)
-	} else {
+	}
+
+	{
 		port = config.HostPort
 		host = config.HostName
 		app = config.AppName
 	}
+
+
 	url := fmt.Sprintf("%s:%d", host, port)
 
 	mutex := &sync.Mutex{}
@@ -44,5 +48,6 @@ func main() {
 	http.HandleFunc("/", handler.Index)
 
 	fmt.Printf("\n\n\t---[%s]---\n\n\tServer running at %s:%d\n\n", app, host, port)
+
 	http.ListenAndServe(url, nil)
 }
