@@ -27,15 +27,12 @@ func main() {
 	app := APP
 	config, success := core.ReadConfig()
 	if !success {
-		log.Fatalf("Unable to read cofniguration file.\n Using default port: %d\n", PORT)
-	}
-
-	{
+		fmt.Printf("\t\t[[Unable to read configuration file. Using default port: %d]]\n\n", PORT)
+	} else {
 		port = config.HostPort
 		host = config.HostName
 		app = config.AppName
 	}
-
 
 	url := fmt.Sprintf("%s:%d", host, port)
 
