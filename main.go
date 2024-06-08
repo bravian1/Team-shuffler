@@ -38,8 +38,7 @@ func main() {
 	url := fmt.Sprintf("%s:%d", host, port)
 
 	mutex := &sync.Mutex{}
-	fs := http.FileServer(http.Dir("static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	http.HandleFunc("/", handler.Home)
 
 	// serve static files
