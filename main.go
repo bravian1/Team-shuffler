@@ -41,6 +41,10 @@ func main() {
 
 	mutex := &sync.Mutex{}
 
+	// serve static files
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
+	// routes
 	http.HandleFunc("/players", handler.Players)
 	http.HandleFunc("/fixtures", handler.Fixtures)
 	http.HandleFunc("/shuffle", handler.Shuffle(mutex))
