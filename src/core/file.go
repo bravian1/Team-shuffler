@@ -14,9 +14,9 @@ func OpenOrCreate(filename string) (string, bool) {
 	}
 	filename = path.Join(rootDir, "storage", filename)
 
-	file, err := os.Open(filename)
+	file, err := os.Create(filename)
 	if err != nil {
-		return fmt.Sprintf("Failed to open %q\n", filename), false
+		return fmt.Sprintf("Failed to create %q\n", filename), false
 	}
 	defer file.Close()
 	return filename, true

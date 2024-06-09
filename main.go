@@ -18,6 +18,10 @@ const (
 )
 
 func main() {
+	err:=core.DownloadFile()
+	if err!= nil {
+		log.Fatal(err)
+    }
 	result, success := core.OpenOrCreate("teams.txt")
 	if !success {
 		log.Fatalf(result)
