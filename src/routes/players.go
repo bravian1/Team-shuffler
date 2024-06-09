@@ -2,7 +2,6 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"bravian1/team-shuffler/src/core"
@@ -23,7 +22,7 @@ func Players(w http.ResponseWriter, r *http.Request) {
 		allplayer = append(allplayer, types.Player{Role: "Striker", Name: ch})
 	}
 
-	fmt.Println(allplayer)
+	//fmt.Println(allplayer)
 	w.Header().Set("content-type", "application/json")
 	json.NewEncoder(w).Encode(allplayer)
 }
