@@ -12,16 +12,16 @@ import (
 )
 
 const (
-	PORT = 8000
+	PORT = 8765
 	HOST = "localhost"
 	APP  = "Team Management App"
 )
 
 func main() {
-	err:=core.DownloadFile()
-	if err!= nil {
+	err := core.DownloadFile()
+	if err != nil {
 		log.Fatal(err)
-    }
+	}
 	result, success := core.OpenOrCreate("teams.txt")
 	if !success {
 		log.Fatalf(result)
@@ -43,12 +43,14 @@ func main() {
 
 	mutex := &sync.Mutex{}
 
-	http.HandleFunc("/", handler.Home)
+	http.HandleFunc("/home", handler.Home)
 
 	// serve static files
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	// routes
+	http.HandleFunc("/rules", handler.RulesHandler)
+	http.HandleFunc("/playerlist", handler.PlayerlistHandler)
 	http.HandleFunc("/players", handler.Players)
 	http.HandleFunc("/fixtures", handler.Fixtures)
 	http.HandleFunc("/shuffle", handler.Shuffle(mutex))

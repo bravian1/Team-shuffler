@@ -1,5 +1,5 @@
 {
     "appname": "Team Management",
     "hostname": "localhost",
-    "hostport": 8000
+    "hostport": 8080
 }

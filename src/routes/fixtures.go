@@ -41,9 +41,8 @@ func Fixtures(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Error creating fixtures", http.StatusInternalServerError)
 		return
 	}
-	startdate := "2024-06-10"
-	intervaldays := 3
-	fixtures := core.Fixture(teams, startdate, intervaldays)
+
+	fixtures := core.Fixture(teams)
 
 	//fmt.Println(fixtures)
 	w.Header().Set("content-type", "application/json")

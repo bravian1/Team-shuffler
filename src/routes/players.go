@@ -26,3 +26,7 @@ func Players(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("content-type", "application/json")
 	json.NewEncoder(w).Encode(allplayer)
 }
+
+func PlayerlistHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "templates/players.html")
+}

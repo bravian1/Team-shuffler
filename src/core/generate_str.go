@@ -1,5 +1,8 @@
 package core
 
+import "strings"
+
 func GenerateString(s1, s2 string) string {
-	return s1[0:2] + s2[:len(s2)-3]
+	news2 := strings.Fields(s2)[1]
+	return s1[:2] + news2
 }
