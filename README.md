@@ -16,3 +16,13 @@ run the code
 ```bash
  go run .
 ```
+
+## port issues
+
+If you run the code and it exits immediately, chances are that you are using a port that is already being used.
+
+You can change the project configuration inside the root folder's config.json. For example
+- app name
+- port
+
+Note: the host name can only be changed when pushin to production
