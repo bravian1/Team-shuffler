@@ -27,9 +27,9 @@ func ReadTeams(filename string) ([]string, []string, error) {
 		line := scanner.Text()
 		words := strings.Split(line, " ")
 		if strings.ToLower(words[0]) == "striker:" {
-			strikers = append(strikers, words[1])
+			strikers = append(strikers, strings.Join(words[1:], " "))
 		} else if strings.ToLower(words[0]) == "defender:" {
-			defenders = append(defenders, words[1])
+			defenders = append(defenders, strings.Join(words[1:], " "))
 		}
 
 		if err := scanner.Err(); err != nil {
