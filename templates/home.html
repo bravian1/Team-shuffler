@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="static/styles.css">
-    <title>Document</title>
+    <title>Foos League</title>
 </head>
 <body>
     <header class="top">
@@ -22,13 +22,13 @@
     </header>
     <nav class="top2">
         <div class="top2-1">
-            <a href="#" >Home</a>
+            <a href="/home" >Home</a>
             <a href="#" hx-get="/toroot" hx-trigger="click" hx-target="#here" >Fixtures</a>
             <a href="#" >Results</a>
             <a href="#" >Tables</a>     
             <a href="#" >News</a>
-            <a href="#" >Players</a>
-            <a href="#" >Awards</a>
+            <a href="/playerlist" >Players</a>
+            <a href="/rules" >Rules</a>
             <a href="#" >Pre-season friendlies</a>
         </div>
     </nav>

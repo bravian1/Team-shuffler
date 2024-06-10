@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player List</title>
+    <link rel="shortcut icon" href="static/favicon.ico" /> 
+    <link type="text/css" href="static/styles.css" rel="stylesheet" />
+    <script defer src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script defer type="text/javascript" src="static/script.js"></script>
+</head>
+<body>
+    <nav class="top2">
+        <div class="top2-1">
+            <a href="/home" >Home</a>
+            <a href="#" hx-get="/toroot" hx-trigger="click" hx-target="#here" >Fixtures</a>
+            <a href="#" >Results</a>
+            <a href="#" >Tables</a>     
+            <a href="#" >News</a>
+            <a href="/playerlist" >Players</a>
+            <a href="/rules" hx-get="/rules" hx-trigger="click" hx-target="#here" >Rules</a>
+            <a href="#" >Pre-season friendlies</a>
+        </div>
+    </nav>
+    <p><a href="/home"><button>Home</button></a></p>
+    <div class="container">
+        <h1>Player List</h1>
+        <table id="players-table">
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Player rows will be inserted here -->
+            </tbody>
+        </table>
+        <h2>Add New Player</h2>
+        <form id="register-form">
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select name="role" id="role">
+                    <option value="Striker" selected>Striker</option>
+                    <option value="Defender">Defender</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <button type="submit" hx-post="/register" hx-target="#players-table tbody" hx-swap="afterend">Add Player</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to handle form submission
+        const handleFormSubmit = (event) => {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Extract form data
+            const form = event.target;
+            const formData = new FormData(form);
+
+            // Send a POST request to the server with form data
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(player => {
+                // Create a new row for the player
+                const playersTableBody = document.querySelector('#players-table tbody');
+                const row = document.createElement('tr');
+                const roleCell = document.createElement('td');
+                roleCell.textContent = player.role;
+                const nameCell = document.createElement('td');
+                nameCell.textContent = player.name;
+                row.appendChild(roleCell);
+                row.appendChild(nameCell);
+
+                // Insert the new row at the end of the table
+                playersTableBody.appendChild(row);
+            })
+            .catch(error => console.error('Error adding new player:', error));
+
+            // Clear the form fields after submission
+            form.reset();
+        };
+
+        // Attach the handleFormSubmit function to the form submission event
+        document.getElementById('register-form').addEventListener('submit', handleFormSubmit);
+
+        // Retrieve player data from the server on page load
+        fetch('/players')
+            .then(response => response.json())
+            .then(players => {
+                const playersTableBody = document.querySelector('#players-table tbody');
+                players.forEach(player => {
+                    const row = document.createElement('tr');
+                    const roleCell = document.createElement('td');
+                    roleCell.textContent = player.role;
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = player.name;
+                    row.appendChild(roleCell);
+                    row.appendChild(nameCell);
+                    playersTableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching player data:', error));
+    </script>
+</body>
+</html>

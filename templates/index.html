@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Shuffler</title>
+    <link rel="shortcut icon" href="static/favicon.ico" /> 
     <link type="text/css" href="static/styles.css" rel="stylesheet" />
     <script defer src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script defer type="text/javascript" src="static/script.js"></script>
 </head>
 <body>
+  
     <div class="container">
         <h1>Team Shuffler</h1>
         
@@ -188,27 +190,28 @@
         });
 
         document.getElementById('show-fixtures-button').addEventListener('click', () => {
-            fetch('/fixtures')
-                .then(response => response.json())
-                .then(fixtures => {
-                    const fixturesTableBody = document.querySelector('#fixtures-table tbody');
-                    fixturesTableBody.innerHTML = ''; // Clear previous data
+    fetch('/fixtures')
+        .then(response => response.json())
+        .then(fixtures => {
+            const fixturesTableBody = document.querySelector('#fixtures-table tbody');
+            fixturesTableBody.innerHTML = ''; // Clear previous data
 
-                    fixtures.forEach((fixture, index) => {
-                        const row = document.createElement('tr');
-                        const weekCell = document.createElement('td');
-                        weekCell.textContent = `Week ${index + 1}`;
-                        const gamesCell = document.createElement('td');
-                        gamesCell.textContent = fixture;
-                        row.appendChild(weekCell);
-                        row.appendChild(gamesCell);
-                        fixturesTableBody.appendChild(row);
-                    });
+            fixtures.forEach((fixture, index) => {
+                const row = document.createElement('tr');
+                const weekCell = document.createElement('td');
+                weekCell.textContent = `GameWeek ${index + 1}`;
+                const gamesCell = document.createElement('td');
+                gamesCell.textContent = fixture;
+                row.appendChild(weekCell);
+                row.appendChild(gamesCell);
+                fixturesTableBody.appendChild(row);
+                fixturesTableBody.appendChild(document.createElement('br')); 
+            });
 
-                    document.getElementById('fixtures-container').classList.remove('hidden');
-                })
-                .catch(error => console.error('Error fetching fixtures:', error));
-        });
+            document.getElementById('fixtures-container').classList.remove('hidden');
+        })
+        .catch(error => console.error('Error fetching fixtures:', error));
+});
     </script>
 </body>
 </html>
