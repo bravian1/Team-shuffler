@@ -1,9 +1,10 @@
 package core
 
 import (
-	"bravian1/team-shuffler/src/types"
 	"fmt"
 	"time"
+
+	"bravian1/team-shuffler/src/types"
 )
 
 func Fixture(teams []types.Teams, startDate string, intervalDays int) []string {
@@ -13,7 +14,6 @@ func Fixture(teams []types.Teams, startDate string, intervalDays int) []string {
 		n += 1
 	}
 
-	
 	start, err := time.Parse("2006-01-02", startDate)
 	if err != nil {
 		fmt.Println("Error parsing start date:", err)
@@ -23,7 +23,7 @@ func Fixture(teams []types.Teams, startDate string, intervalDays int) []string {
 	fixtures := []string{}
 	for round := 1; round < n; round++ {
 		round_date := start.AddDate(0, 0, (round-1)*intervalDays).Format("2006-01-02")
-		round_match := "Week " + fmt.Sprint(round) + " [" + round_date + ": "
+		round_match := " [" + round_date + ": "
 		match_list := []string{}
 		for match := 0; match <= n/2-1; match++ {
 			home := (round + match) % (n - 1)
@@ -42,4 +42,3 @@ func Fixture(teams []types.Teams, startDate string, intervalDays int) []string {
 
 	return fixtures
 }
-

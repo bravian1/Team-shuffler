@@ -182,6 +182,10 @@
                     shuffledTeamsContainer.classList.remove('hidden');
                 })
                 .catch(error => console.error('Error fetching shuffled teams:', error));
+                document.getElementById("shuffle-button").disabled = true;
+                var button=document.getElementById("shuffle-button");
+                    button.style.display="none";
+
         });
 
         document.getElementById('show-fixtures-button').addEventListener('click', () => {
