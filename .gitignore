@@ -23,3 +23,6 @@ go.work.sum
 
 # ignore files in storage because they keep changing during development
 storage/*
+
+# ignore the folder with default players
+tmp/main
