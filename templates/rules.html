@@ -5,93 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foosball Rules</title>
     <link rel="shortcut icon" href="static/favicon.ico" />
-    <!-- <link type="text/css" href="static/styles.css" rel="stylesheet" /> -->
     <style>
         body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 20px;
-    background-color: #f9f9f9;
-    color: #333;
-}
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
 
+        .top2 {
+            background-color: #37003c;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-.top2 {
-    background-color: #FFFFFF;
+        .top2 .top2-1 {
+            display: flex;
+            justify-content: center;
+        }
+
+        .top2 .top2-1 a {
+            margin: 0 15px;
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .top2 .top2-1 a:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            color: #37003c;
+            margin-bottom: 30px;
+        }
+
+        .rule-section {
+            margin-bottom: 20px;
+        }
+
+        .rule-section h2 {
+            color: #37003c;
+            margin-top: 25px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .rule-section ul {
+            margin-left: 30px;
+            list-style-type: disc;
+        }
+
+        .rule-section p {
+            margin: 10px 0;
+        }
+
+   
+        .foostable {
     width: 100%;
-    padding: 8px;
-    margin: 10px;
-    border-radius: 5px;
-    display: flex;
-    align-content: center;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
 }
-
-.top2 .top2-1 {
-    text-align: center;
-    width: 100%;
+.foostable:hover {
+    transform: scale(1.05);
 }
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            .top2 .top2-1 {
+                flex-direction: column;
+                align-items: center;
+            }
 
-.top2 .top2-1 a {
-    margin: 4px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #4CAF50;
-    transition: color 0.5s ease, transform 0.5s ease;
-    font-family: 'Roboto', sans-serif;
-}
-
-.top2-1 a:hover {
-    color: #ff6347;
-    transform: scale(1.5);
-}
-
-.content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.title {
-    text-align: center;
-    color: #444;
-    margin-bottom: 30px;
-}
-
-.rule-section {
-    margin-bottom: 20px;
-}
-
-.rule-section h2 {
-    color: #555;
-    margin-top: 25px;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
-}
-
-.rule-section ul {
-    margin-left: 30px;
-    list-style-type: disc;
-}
-
-.rule-section p {
-    margin: 10px 0;
-}
-
+            .top2 .top2-1 a {
+                margin: 5px 0;
+            }
+        }
     </style>
 </head>
 <body>
     <nav class="top2">
         <div class="top2-1">
-            <a href="/home" >Home</a>
-            <a href="#" hx-get="/toroot" hx-trigger="click" hx-target="#here" >Fixtures</a>
-            <a href="#" >Results</a>
-            <a href="#" >Tables</a>     
-            <a href="#" >News</a>
-            <a href="/playerlist" >Players</a>
-            <a href="/rules" >Rules</a>
-            <a href="#" >Pre-season friendlies</a>
+            <a href="/home">Home</a>
+            <a href="/toroot" >Fixtures</a>
+            <a href="#">News</a>
+            <a href="/playerlist">Players</a>
+            <a href="/rules">Rules</a>
         </div>
     </nav>
 
@@ -110,6 +123,9 @@
                 <li>Each player/team controls rods with players, aiming to score in the opponent's goal.</li>
                 <li>Standard tables have 8 rods (3-man, 2-man, 5-man, goalie) for each side.</li>
             </ul>
+            <div class="image-placeholder">
+                <img class="foostable" src="static/foostable.jpeg">
+            </div>
         </div>
 
         <div class="rule-section">

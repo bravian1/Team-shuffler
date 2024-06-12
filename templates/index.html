@@ -8,87 +8,270 @@
     <link type="text/css" href="static/styles.css" rel="stylesheet" />
     <script defer src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script defer type="text/javascript" src="static/script.js"></script>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Header styles */
+        header.top {
+            background-color: #37003c;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            align-items: center;
+        }
+
+        header.top .top-1 {
+            display: flex;
+            align-items: center;
+        }
+
+        header.top .limg {
+            height: 50px;
+            margin-right: 20px;
+        }
+
+        header.top nav a {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        header.top .top-2 a {
+            margin-left: 20px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        /* Navigation bar styles */
+        nav.top2 {
+            background-color: #ececec;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.top2 .top2-1 {
+            display: flex;
+            justify-content: center;
+        }
+
+        nav.top2 .top2-1 a {
+            margin: 0 15px;
+            color: #333;
+            font-size: 16px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav.top2 .top2-1 a:hover {
+            color: #37003c;
+            transform: scale(1.1);
+        }
+
+        /* Main content styles */
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1, h2, h3 {
+            color: #37003c;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .leftcolumn, .rightcolumn {
+            flex: 1;
+            padding: 15px;
+        }
+
+        .card, .card1 {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        /* Table styles */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .table th {
+            background-color: #37003c;
+            color: white;
+        }
+
+        /* Form styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #37003c;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4a0051;
+        }
+
+        /* Hidden elements */
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
   
+    <header class="top">
+        <div class="top-1">
+            <img src="static/istockphoto-898541222-1024x1024.jpg" alt="Logo" class="limg">
+            <nav>
+                <a href="/home">Team Shuffler</a>
+            </nav>
+        </div>
+        <div class="top-2">
+            <a href="/home">Home</a>
+            <a href="/playerlist">Players</a>
+            <a href="/rules">Rules</a>
+            <a href="/toroot">Fixtures</a>
+        </div>
+    </header>
+
+
     <div class="container">
         <h1>Team Shuffler</h1>
         
         <div class="row">
             <!-- Left column -->
             <div class="leftcolumn">
-                <section>
-                    <h2>Player List</h2>
-                    <table id="players-table">
-                        <thead>
-                            <tr>
-                                <th>Role</th>
-                                <th>Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Player rows will be inserted here -->
-                        </tbody>
-                    </table>
-                </section>
-                
-                <section>
-                    <h2>Add New Player</h2>
-                    <form id="register-form">
-                        <div class="form-group">
-                            <label for="role">Role:</label>
-                            <select name="role" id="role">
-                                <option value="Striker" selected>Striker</option>
-                                <option value="Defender">Defender</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Name:</label>
-                            <input type="text" id="name" name="name">
-                        </div>
-                        <button type="submit" hx-post="/register" hx-target="#players-table tbody" hx-swap="afterend">Add Player</button>
-                    </form>
-                </section>
+                <div class="card">
+                    <section>
+                        <h2>Player List</h2>
+                        <table id="players-table" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Role</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Player rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+
+                <div class="card">
+                    <section>
+                        <h2>Add New Player</h2>
+                        <form id="register-form">
+                            <div class="form-group">
+                                <label for="role">Role:</label>
+                                <select name="role" id="role">
+                                    <option value="Striker" selected>Striker</option>
+                                    <option value="Defender">Defender</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name">
+                            </div>
+                            <button type="submit" hx-post="/register" hx-target="#players-table tbody" hx-swap="afterend">Add Player</button>
+                        </form>
+                    </section>
+                </div>
 
                 <button id="shuffle-button">Shuffle Teams</button>
             </div>
 
             <!-- Right column -->
             <div class="rightcolumn">
-                <section id="shuffled-teams-container" class="hidden">
-                    <h2>Shuffled Teams</h2>
-                    <table id="shuffled-teams-table">
-                        <thead>
-                            <tr>
-                                <th>Team</th>
-                                <th>Striker</th>
-                                <th>Defender</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Shuffled team rows will be inserted here -->
-                        </tbody>
-                    </table>
-                </section>
-
-                <section>
-                    <button id="show-fixtures-button">Show Fixtures</button>
-                    <div id="fixtures-container" class="hidden">
-                        <h2>Fixtures</h2>
-                        <table id="fixtures-table">
+                <div class="card">
+                    <section id="shuffled-teams-container" class="hidden">
+                        <h2>Shuffled Teams</h2>
+                        <table id="shuffled-teams-table" class="table">
                             <thead>
                                 <tr>
-                                    <th>Week</th>
-                                    <th>Games</th>
+                                    <th>Team</th>
+                                    <th>Striker</th>
+                                    <th>Defender</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Fixture rows will be inserted here -->
+                                <!-- Shuffled team rows will be inserted here -->
                             </tbody>
                         </table>
-                        <button onclick="hideFixtures()">Hide Fixtures</button>
-                    </div>
-                </section>
+                    </section>
+                </div>
+
+                <div class="card">
+                    <section>
+                        <button id="show-fixtures-button">Show Fixtures</button>
+                        <div id="fixtures-container" class="hidden">
+                            <h2>Fixtures</h2>
+                            <table id="fixtures-table" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Week</th>
+                                        <th>Games</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Fixture rows will be inserted here -->
+                                </tbody>
+                            </table>
+                            <button onclick="hideFixtures()">Hide Fixtures</button>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </div>
@@ -190,28 +373,28 @@
         });
 
         document.getElementById('show-fixtures-button').addEventListener('click', () => {
-    fetch('/fixtures')
-        .then(response => response.json())
-        .then(fixtures => {
-            const fixturesTableBody = document.querySelector('#fixtures-table tbody');
-            fixturesTableBody.innerHTML = ''; // Clear previous data
+            fetch('/fixtures')
+                .then(response => response.json())
+                .then(fixtures => {
+                    const fixturesTableBody = document.querySelector('#fixtures-table tbody');
+                    fixturesTableBody.innerHTML = ''; // Clear previous data
 
-            fixtures.forEach((fixture, index) => {
-                const row = document.createElement('tr');
-                const weekCell = document.createElement('td');
-                weekCell.textContent = `GameWeek ${index + 1}`;
-                const gamesCell = document.createElement('td');
-                gamesCell.textContent = fixture;
-                row.appendChild(weekCell);
-                row.appendChild(gamesCell);
-                fixturesTableBody.appendChild(row);
-                fixturesTableBody.appendChild(document.createElement('br')); 
-            });
+                    fixtures.forEach((fixture, index) => {
+                        const row = document.createElement('tr');
+                        const weekCell = document.createElement('td');
+                        weekCell.textContent = `GameWeek ${index + 1}`;
+                        const gamesCell = document.createElement('td');
+                        gamesCell.textContent = fixture;
+                        row.appendChild(weekCell);
+                        row.appendChild(gamesCell);
+                        fixturesTableBody.appendChild(row);
+                        fixturesTableBody.appendChild(document.createElement('br')); 
+                    });
 
-            document.getElementById('fixtures-container').classList.remove('hidden');
-        })
-        .catch(error => console.error('Error fetching fixtures:', error));
-});
+                    document.getElementById('fixtures-container').classList.remove('hidden');
+                })
+                .catch(error => console.error('Error fetching fixtures:', error));
+        });
     </script>
 </body>
 </html>
