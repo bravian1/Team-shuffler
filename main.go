@@ -22,6 +22,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	result, success := core.OpenOrCreate("teams.txt")
 	if !success {
 		log.Fatalf(result)
@@ -44,12 +45,14 @@ func main() {
 	mutex := &sync.Mutex{}
 
 	http.HandleFunc("/home", handler.Home)
+	http.HandleFunc("/", handler.Home)
 
 	// serve static files
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	// routes
 	http.HandleFunc("/rules", handler.RulesHandler)
+	http.HandleFunc("/table", handler.Table)
 	http.HandleFunc("/playerlist", handler.PlayerlistHandler)
 	http.HandleFunc("/players", handler.Players)
 	http.HandleFunc("/fixtures", handler.Fixtures)
