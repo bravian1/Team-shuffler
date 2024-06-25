@@ -60,7 +60,7 @@ func main() {
 	http.HandleFunc("/register", handler.Register(mutex))
 	http.HandleFunc("/toroot", handler.Index)
 
-	fmt.Printf("\n\n\t---[%s]---\n\n\tServer running at %s:%d\n\n", app, host, port)
+	fmt.Printf("\n\n\t---[%s]---\n\n\tServer running at http://%s:%d\n\n", app, host, port)
 
 	http.ListenAndServe(url, nil)
 }

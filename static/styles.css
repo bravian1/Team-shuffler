@@ -392,3 +392,173 @@ h1, h2, h3 {
 .card-container1:hover .hover-text {
     opacity: 1;
 }
+
+/*===========================================
+=============================================
+===============================================*/
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Header styles */
+header.top {
+    background-color: #37003c;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+}
+
+header.top .top-1 {
+    display: flex;
+    align-items: center;
+}
+
+header.top .limg {
+    height: 50px;
+    margin-right: 20px;
+}
+
+header.top nav a {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header.top .top-2 a {
+    margin-left: 20px;
+    color: #fff;
+    font-size: 16px;
+}
+
+/* Navigation bar styles */
+nav.top2 {
+    background-color: #ececec;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav.top2 .top2-1 {
+    display: flex;
+    justify-content: center;
+}
+
+nav.top2 .top2-1 a {
+    margin: 0 15px;
+    color: #333;
+    font-size: 16px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+nav.top2 .top2-1 a:hover {
+    color: #37003c;
+    transform: scale(1.1);
+}
+
+/* Main content styles */
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h1, h2, h3 {
+    color: #37003c;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.leftcolumn, .rightcolumn {
+    flex: 1;
+    padding: 15px;
+}
+
+.card, .card1 {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Table styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.table th {
+    background-color: #37003c;
+    color: white;
+}
+.table-week-date {
+    margin: .5rem auto 1rem;
+    font-size: 2rem;
+    color: crimson;
+    text-align: center;
+    font-weight: 500;
+}
+/* Form styles */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group select, .form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #37003c;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4a0051;
+}
+
+/* Hidden elements */
+.hidden {
+    display: none;
+}
+.fixture-spacing table {
+    margin-bottom: 20px; /* Adjust the value as needed */
+}

@@ -1,33 +1,41 @@
 package core
 
 import (
+	"strconv"
+
 	"bravian1/team-shuffler/src/types"
 )
 
-func Fixture(teams []types.Teams) [][]string {
+func Fixture(teams []types.Teams) []types.GameWeek {
 	n := len(teams)
 	if n%2 != 0 {
 		teams = append(teams, types.Teams{Name: "", Striker: "", Defender: ""})
 		n += 1
 	}
+	gameweek := []types.GameWeek{}
 
-	fixtures := [][]string{}
+	date := 1
 	for round := 1; round < n-1; round++ {
-		//round_match :=[]string{}
-		match_list := []string{}
+		week := types.GameWeek{
+			Week:    date,
+			Matches: []types.Fixture{},
+		}
 		for match := 0; match < n/2; match++ {
 			home := (round + match) % (n - 1)
 			away := (n - 1 - match + round) % (n - 1)
 			if match == 0 {
 				away = n - 1
 			}
-			if !(teams[away].Name == "" || teams[home].Name == "") {
-				match_list = append(match_list, teams[home].Name+" vs "+teams[away].Name+" \n")
-			}
+			week.Matches = append(week.Matches, types.Fixture{Date: strconv.Itoa(date), Home: teams[home].Name, Away: teams[away].Name})
+			// if !(teams[away].Name == "" || teams[home].Name == "") {
+			// 	match_list = append(match_list, teams[home].Name+" vs "+teams[away].Name+" \n")
+			// }
+			// fixtures = append(fixtures, types.Fixture{Date: "Week " + fmt.Sprintf("%d", round) + " Fixtures", Home: teams[home].Name, Away: teams[away].Name})
 		}
-
-		fixtures = append(fixtures, match_list)
+		gameweek = append(gameweek, week)
+		date++
 	}
+	// gameweek = append(gameweek, types.GameWeek{Week: 1, Matches: fixtures})
 
-	return fixtures
+	return gameweek
 }

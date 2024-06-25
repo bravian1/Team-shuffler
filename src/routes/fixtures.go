@@ -2,6 +2,7 @@ package routes
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"path"
@@ -42,9 +43,9 @@ func Fixtures(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fixtures := core.Fixture(teams)
+	gameweeks := core.Fixture(teams)
 
-	//fmt.Println(fixtures)
+	fmt.Println(gameweeks)
 	w.Header().Set("content-type", "application/json")
-	json.NewEncoder(w).Encode(fixtures)
+	json.NewEncoder(w).Encode(gameweeks)
 }

@@ -1,6 +1,7 @@
 package types
 
 type Player struct {
+
 	Name string `json:"name"`
 	Role string `json:"role"`
 }
@@ -19,4 +20,15 @@ type Table struct {
 	GoalsFor   int    `json:"goalsfor"`
 	GoalsAgainst   int    `json:"goalsagainst"`
 	Points int    `json:"points"`
+}
+
+type Fixture struct {
+	Home string `json:"home"`
+	Away string `json:"away"`
+	Date  string `json:"date"`
+}
+
+type GameWeek struct {
+	Week     int    `json:"week"`
+	Matches []Fixture `json:"matches"`
 }

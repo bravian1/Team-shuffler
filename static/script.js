@@ -2,10 +2,6 @@ function reloadPage() {
     window.location.reload(); // Reload the page
 }
 
-function hideFixtures() {
-    document.getElementById('fixtures-container').classList.add('hidden');
-}
-
 // Function to handle form submission
 const handleFormSubmit = (event) => {
     event.preventDefault(); // Prevent the default form submission
@@ -87,27 +83,64 @@ document.getElementById('shuffle-button').addEventListener('click', () => {
             shuffledTeamsContainer.classList.remove('hidden');
         })
         .catch(error => console.error('Error fetching shuffled teams:', error));
+        document.getElementById("shuffle-button").disabled = true;
+        var button=document.getElementById("shuffle-button");
+            button.style.display="none";
+
 });
+function createTableRow(match) {
+    const row = document.createElement('tr');
+    const homeCell = document.createElement('td');
+    homeCell.textContent = match.home;
+    const awayCell = document.createElement('td');
+    awayCell.textContent = match.away;
+    row.appendChild(homeCell);
+    row.appendChild(awayCell);
+    return row;
+}
 
-document.getElementById('show-fixtures-button').addEventListener('click', () => {
-fetch('/fixtures')
-.then(response => response.json())
-.then(fixtures => {
-    const fixturesTableBody = document.querySelector('#fixtures-table tbody');
-    fixturesTableBody.innerHTML = ''; // Clear previous data
+function createTable(week, weekDate) {
+    const table = document.createElement("table");
+    table.classList.add("table")
+    const weekDateDiv = document.createElement("div");
+    weekDateDiv.classList.add("table-week-date")
+    weekDateDiv.textContent = "Game Week " + weekDate;
+    table.appendChild(weekDateDiv);
+    const thr = document.createElement("tr");
+    const thHome = document.createElement("th");
+    thHome.textContent = "Home";
+    const thAway = document.createElement("th");
+    thAway.textContent = "Away";
+    thr.appendChild(thHome);
+    thr.appendChild(thAway);
+    table.appendChild(thr);
 
-    fixtures.forEach((fixture, index) => {
-        const row = document.createElement('tr');
-        const weekCell = document.createElement('td');
-        weekCell.textContent = `Week ${index + 1}`;
-        const gamesCell = document.createElement('td');
-        gamesCell.textContent = fixture;
-        row.appendChild(weekCell);
-        row.appendChild(gamesCell);
-        fixturesTableBody.appendChild(row);
+    week.matches.forEach(match => {
+        const row = createTableRow(match);
+        table.appendChild(row);
     });
 
-    document.getElementById('fixtures-container').classList.remove('hidden');
-})
-.catch(error => console.error('Error fetching fixtures:', error));
+    return table;
+}
+
+document.getElementById('show-fixtures-button').addEventListener('click', () => {
+    fetch('/fixtures')
+        .then(response => response.json())
+        .then(fixtures => {
+            const fixtureDiv = document.getElementById('fixtures');
+            fixtureDiv.innerHTML = ''; // Clear previous content
+
+            let weekDate = 1;
+            fixtures.forEach(week => {
+                const table = createTable(week, weekDate);
+                fixtureDiv.appendChild(table);
+                weekDate++;
+            });
+
+            // Add CSS class for spacing
+            fixtureDiv.classList.add('fixture-spacing');
+
+            console.log(fixtureDiv);
+        })
+        .catch(error => console.error('Error fetching fixtures:', error));
 });
