@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foosball Rules</title>
+    <link rel="shortcut icon" href="static/favicon.ico" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .top2 {
+            background-color: #37003c;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .top2 .top2-1 {
+            display: flex;
+            justify-content: center;
+        }
+
+        .top2 .top2-1 a {
+            margin: 0 15px;
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .top2 .top2-1 a:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            color: #37003c;
+            margin-bottom: 30px;
+        }
+
+        .rule-section {
+            margin-bottom: 20px;
+        }
+
+        .rule-section h2 {
+            color: #37003c;
+            margin-top: 25px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .rule-section ul {
+            margin-left: 30px;
+            list-style-type: disc;
+        }
+
+        .rule-section p {
+            margin: 10px 0;
+        }
+
+   
+        .foostable {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+.foostable:hover {
+    transform: scale(1.05);
+}
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            .top2 .top2-1 {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .top2 .top2-1 a {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top2">
+        <div class="top2-1">
+            <a href="/home">Home</a>
+            <a href="/toroot" >Fixtures</a>
+            <a href="#">News</a>
+            <a href="/playerlist">Players</a>
+            <a href="/rules">Rules</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1 class="title">Foosball Rules</h1>
+
+        <div class="rule-section">
+            <h2>Objective</h2>
+            <p>Score more goals than your opponent within the time limit or until a set number of goals is reached.</p>
+        </div>
+
+        <div class="rule-section">
+            <h2>Setup</h2>
+            <ul>
+                <li>The table is divided into two halves by a central barrier.</li>
+                <li>Each player/team controls rods with players, aiming to score in the opponent's goal.</li>
+                <li>Standard tables have 8 rods (3-man, 2-man, 5-man, goalie) for each side.</li>
+            </ul>
+            <div class="image-placeholder">
+                <img class="foostable" src="static/foostable.jpeg">
+            </div>
+        </div>
+
+        <div class="rule-section">
+            <h2>Gameplay</h2>
+            <ul>
+                <li>Coin toss decides who serves first; after a goal, the scored-on team serves.</li>
+                <li>Only the rods closest to the goal can be used to put the ball into play from a dead ball situation.</li>
+                <li>Players must only touch their assigned rods and cannot interfere with the ball directly.</li>
+                <li>The ball must touch two men on the 5-bar before being passed forward.</li>
+                <li>A spinning rod (360-degree rotation) without touching the ball is a foul.</li>
+                <li>Time limits apply to ball possession (usually 15 seconds for defense/goalie, 10 seconds for midfield).</li>
+            </ul>
+        </div>
+
+        <div class="rule-section">
+            <h2>Scoring</h2>
+            <p>A goal is scored when the ball fully passes the goal line.</p>
+            <p>Games are often played to 5 or 10 goals, or with a set time limit.</p>
+        </div>
+
+        <div class="rule-section">
+            <h2>Fouls and Penalties</h2>
+            <ul>
+                <li>Touching the ball, jarring the table, or unsportsmanlike conduct are fouls.</li>
+                <li>Penalties can include loss of possession, a free kick for the opponent, or even a goal awarded.</li>
+                <li>Jarring the table results in the opposing team being awarded the ball on the 5-bar rod.</li>
+                <li>A ball that is stuck is awarded to the defensive team.</li>
+            </ul>
+        </div>
+
+        <div class="rule-section">
+            <h2>Special Rules (Optional)</h2>
+            <ul>
+                <li>"No lift" rule: Prohibits lifting the ball off the table except during service.</li>
+                <li>"Three-strikes" rule: Disqualifies players after three warnings for misconduct.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

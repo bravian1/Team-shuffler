@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Shuffler</title>
+    <link rel="shortcut icon" href="static/favicon.ico" /> 
+    <link type="text/css" href="static/styles.css" rel="stylesheet" />
+    <script defer src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script defer type="text/javascript" src="static/script.js"></script>
+</head>
+<body>
+  
+    <header class="top">
+        <div class="top-1">
+            <img src="static/istockphoto-898541222-1024x1024.jpg" alt="Logo" class="limg">
+            <nav>
+                <a href="/home">Team Shuffler</a>
+            </nav>
+        </div>
+        <div class="top-2">
+            <a href="/home">Home</a>
+            <a href="/playerlist">Players</a>
+            <a href="/rules">Rules</a>
+            <a href="/toroot">Fixtures</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Team Shuffler</h1>
+        
+        <div class="row">
+            <!-- Left column -->
+            <div class="leftcolumn">
+                <div class="card">
+                    <section>
+                        <h2>Player List</h2>
+                        <table id="players-table" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Role</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Player rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+
+                <div class="card">
+                    <section>
+                        <h2>Add New Player</h2>
+                        <form id="register-form">
+                            <div class="form-group">
+                                <label for="role">Role:</label>
+                                <select name="role" id="role">
+                                    <option value="Striker" selected>Striker</option>
+                                    <option value="Defender">Defender</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name">
+                            </div>
+                            <button type="submit" hx-post="/register" hx-target="#players-table tbody" hx-swap="afterend">Add Player</button>
+                        </form>
+                    </section>
+                </div>
+
+                <button id="shuffle-button">Shuffle Teams</button>
+            </div>
+
+            <!-- Right column -->
+            <div class="rightcolumn">
+                <div class="card">
+                    <section id="shuffled-teams-container" class="hidden">
+                        <h2>Shuffled Teams</h2>
+                        <table id="shuffled-teams-table" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>Striker</th>
+                                    <th>Defender</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Shuffled team rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+
+                <div class="card">
+                    <section>
+                        <button id="show-fixtures-button">Fixtures</button>
+                        <div id="fixtures-container">
+                            <div id="fixtures"></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

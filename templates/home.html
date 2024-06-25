@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="static/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="static/styles.css">
+    <title>Foos League</title>
+</head>
+<body>
+    <header class="top">
+        <div class="top-1">
+            <img src="static/istockphoto-898541222-1024x1024.jpg" alt="Logo" class="limg">
+            <nav>
+                <a href="#">FoosBall league</a>
+            </nav>
+        </div>
+        <div class="top-2">
+            <a href="#" >Login</a>
+            <a href="#" >Sign in</a>
+        </div>
+    </header>
+    <nav class="top2">
+        <div class="top2-1">
+            <a href="/home" >Home</a>
+            <a href="/toroot"  >Fixtures</a>
+            <a href="#" >News</a>
+            <a href="/playerlist" >Players</a>
+            <a href="/rules" >Rules</a>
+        </div>
+    </nav>
+<div id="here">
+    <div class="row">
+        <div class="leftcolumn">
+          <div class="card1">
+            <table class="table">
+                
+                    <thead>
+                        <tr>
+                            <th>Team Name</th>
+                            <th>Played</th>
+                            <th>Wins</th>
+                            <th>Draws</th>
+                            <th>Losses</th>
+                            <th>Goals For</th>
+                            <th>Goals Against</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            </table>
+          </div>
+        </div>
+        <div class="rightcolumn">
+          <div class="card">
+            <img class="fakeimg1" src="static/mpho-mojapelo-UHDx3BHlFvY-unsplash.jpg">
+            <p>Feature</p>
+            <h3>Why Tosin is a perfect fit for Maresca's philosophy at Chelsea</h3>
+            <p>Alex Keble analyses Blues' new centre-back as he moves across west London from Fulham</p>
+          </div>
+          <div class="card">
+            <div class="card-container">
+                <div class="card-container1">
+           
+                        
+                        <img class="fakeimg3" src="static/kelly-sikkema-ehzHvVk0dAw-unsplash.jpg">
+                        <div class="hover-text">Welcome to Foosball!</div>
+                    
+ 
+                </div>
+                <div class="card-container1">
+                   
+                        <img class="fakeimg3" src="static/kelly-sikkema-ehzHvVk0dAw-unsplash.jpg">
+                        <div class="hover-text">Welcome to Foosball!</div>
+                   
+                </div>
+            </div>
+           
+          </div>
+         
+        </div>
+      </div>
+      </div>
+      <script>
+                // Retrieve table data from the server on page load
+                fetch('/table')
+            .then(response => response.json())
+            .then(table => {
+                const teamsTableBody = document.querySelector('table');
+                table.forEach(table => {
+                    const row = document.createElement('tr');
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = table.teamname;
+                    const playedCell = document.createElement('td');
+                    playedCell.textContent = table.played;
+                    const winsCell = document.createElement('td');
+                    winsCell.textContent = table.wins;
+                    const drawsCell = document.createElement('td');
+                    drawsCell.textContent = table.draws;
+                    const lossesCell = document.createElement('td');
+                    lossesCell.textContent = table.losses;
+                    const goalsforCell = document.createElement('td');
+                    goalsforCell.textContent = table.goalsfor;
+                    const goalsagainstCell = document.createElement('td');
+                    goalsagainstCell.textContent = table.goalsagainst;
+                    const pointsCell = document.createElement('td');
+                    pointsCell.textContent = table.points;
+                    row.appendChild(nameCell);
+                    row.appendChild(playedCell);
+                    row.appendChild(winsCell);
+                    row.appendChild(drawsCell);
+                    row.appendChild(lossesCell);
+                    row.appendChild(goalsforCell);
+                    row.appendChild(goalsagainstCell);
+                    row.appendChild(pointsCell);
+                    teamsTableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching table data:', error));
+      </script>
+</body>
+</html>
