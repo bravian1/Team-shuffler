@@ -7,7 +7,7 @@ import (
 	"path"
 	"text/template"
 
-	"bravian1/team-shuffler/src/db"
+	"bravian1/team-shuffler/src/data"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
@@ -22,7 +22,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func Table(w http.ResponseWriter, r *http.Request) {
-	df := db.GetPlayers()
+	df := data.GetPlayers()
 
 	w.Header().Set("content-type", "application/json")
 	json.NewEncoder(w).Encode(df)

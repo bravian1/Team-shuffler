@@ -4,27 +4,26 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"bravian1/team-shuffler/src/core"
+	"bravian1/team-shuffler/src/data"
 	"bravian1/team-shuffler/src/types"
 )
 
 func Players(w http.ResponseWriter, r *http.Request) {
-	strikers, defenders, err := core.ReadTeams("players.txt")
+	db, err := data.ConnectDB()
 	if err != nil {
-		http.Error(w, "Error reading users", http.StatusInternalServerError)
+		http.Error(w, "Database connection error", http.StatusInternalServerError)
 		return
 	}
-	allplayer := []types.Player{}
-	for _, ch := range defenders {
-		allplayer = append(allplayer, types.Player{Role: "Defender", Name: ch})
-	}
-	for _, ch := range strikers {
-		allplayer = append(allplayer, types.Player{Role: "Striker", Name: ch})
+
+	var players []types.Player
+	result := db.Find(&players)
+	if result.Error != nil {
+		http.Error(w, "Database query error", http.StatusInternalServerError)
+		return
 	}
 
-	//fmt.Println(allplayer)
-	w.Header().Set("content-type", "application/json")
-	json.NewEncoder(w).Encode(allplayer)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(players)
 }
 
 func PlayerlistHandler(w http.ResponseWriter, r *http.Request) {

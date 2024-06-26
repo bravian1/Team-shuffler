@@ -1,34 +1,42 @@
 package types
 
-type Player struct {
+import "gorm.io/gorm"
 
-	Name string `json:"name"`
-	Role string `json:"role"`
+type Player struct {
+	gorm.Model
+	Name string `gorm:"type:varchar(255);not null" json:"name"`
+	Role string `gorm:"type:varchar(50);not null" json:"role"`
 }
-type Teams struct {
-	Name  string `json:"name"`
-	Striker  string `json:"striker"`
-	Defender string `json:"defender"`
+
+type Team struct {
+	gorm.Model
+	Name     string `gorm:"type:varchar(255);not null" json:"name"`
+	Striker  string `gorm:"type:varchar(255);not null" json:"striker"`
+	Defender string `gorm:"type:varchar(255);not null" json:"defender"`
 }
 
 type Table struct {
-	TeamName  string `json:"teamname"`
-	Played    int    `json:"played"`
-	Wins     int    `json:"wins"`
-	Draws    int    `json:"draws"`
-	Losses   int    `json:"losses"`
-	GoalsFor   int    `json:"goalsfor"`
-	GoalsAgainst   int    `json:"goalsagainst"`
-	Points int    `json:"points"`
+	gorm.Model
+	TeamName     string `gorm:"type:varchar(255);not null" json:"teamname"`
+	Played       int    `json:"played"`
+	Wins         int    `json:"wins"`
+	Draws        int    `json:"draws"`
+	Losses       int    `json:"losses"`
+	GoalsFor     int    `json:"goalsfor"`
+	GoalsAgainst int    `json:"goalsagainst"`
+	Points       int    `json:"points"`
 }
 
 type Fixture struct {
-	Home string `json:"home"`
-	Away string `json:"away"`
-	Date  string `json:"date"`
+    gorm.Model
+    Home       string `gorm:"type:varchar(255);not null" json:"home"`
+    Away       string `gorm:"type:varchar(255);not null" json:"away"`
+    Date       string `gorm:"type:varchar(255);not null" json:"date"`
+    GameWeekID uint
 }
 
 type GameWeek struct {
-	Week     int    `json:"week"`
-	Matches []Fixture `json:"matches"`
+	gorm.Model
+	Week    int       `json:"week"`
+	Matches []Fixture `gorm:"foreignKey:GameWeekID" json:"matches"`
 }

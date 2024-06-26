@@ -6,10 +6,10 @@ import (
 	"bravian1/team-shuffler/src/types"
 )
 
-func Fixture(teams []types.Teams) []types.GameWeek {
+func Fixture(teams []types.Team) []types.GameWeek {
 	n := len(teams)
 	if n%2 != 0 {
-		teams = append(teams, types.Teams{Name: "", Striker: "", Defender: ""})
+		teams = append(teams, types.Team{Name: "", Striker: "", Defender: ""})
 		n += 1
 	}
 	gameweek := []types.GameWeek{}
