@@ -28,18 +28,6 @@ func Register(mutex *sync.Mutex) http.HandlerFunc {
 			return
 		}
 
-		// line := fmt.Sprintf("\n%s: %s", role, name)
-
-		// successWrite := false
-
-		// go func() {
-		// 	successWrite = core.WriteStringToFile(mutex, "players.txt", line)
-		// }()
-
-		// if !successWrite {
-		// 	http.Error(w, "Error registering user", http.StatusInternalServerError)
-		// 	return
-		// }
 
 		w.Header().Set("content-type", "application.json")
 		json.NewEncoder(w).Encode(player)

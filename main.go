@@ -71,7 +71,7 @@ func main() {
 	http.HandleFunc("/playerlist", handler.PlayerlistHandler)
 	http.HandleFunc("/players", handler.Players)
 	http.HandleFunc("/fixtures", handler.Fixtures)
-	http.HandleFunc("/shuffle", handler.Shuffle(mutex))
+	http.HandleFunc("/shuffle", handler.Shuffle)
 	http.HandleFunc("/register", handler.Register(mutex))
 	http.HandleFunc("/toroot", handler.Index)
 
