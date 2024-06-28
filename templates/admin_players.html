@@ -22,7 +22,7 @@
 <body>
     <h1>Manage Players</h1>
     <h2>Add New Player</h2>
-    <form id="register-form">
+    <form hx-post="/register" hx-target="#players-table tbody" hx-swap="beforeend">
         <div class="form-group">
             <label for="role">Role:</label>
             <select name="role" id="role">
@@ -32,9 +32,9 @@
         </div>
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" required>
         </div>
-        <button type="submit" hx-post="/register" hx-target="#players-table tbody" hx-swap="afterend">Add Player</button>
+        <button type="submit">Add Player</button>
     </form>
     <h2>Existing Players</h2>
     <table id="players-table" class="table">
@@ -44,62 +44,9 @@
                 <th>Name</th>
             </tr>
         </thead>
-        <tbody>
-    <script>
-        // Function to handle form submission
-        const handleFormSubmit = (event) => {
-            event.preventDefault(); // Prevent the default form submission
-
-            // Extract form data
-            const form = event.target;
-            const formData = new FormData(form);
-
-            // Send a POST request to the server with form data
-            fetch(form.action, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(player => {
-                // Create a new row for the player
-                const playersTableBody = document.querySelector('#players-table tbody');
-                const row = document.createElement('tr');
-                const roleCell = document.createElement('td');
-                roleCell.textContent = player.role;
-                const nameCell = document.createElement('td');
-                nameCell.textContent = player.name;
-                row.appendChild(roleCell);
-                row.appendChild(nameCell);
-
-                // Insert the new row at the end of the table
-                playersTableBody.appendChild(row);
-            })
-            .catch(error => console.error('Error adding new player:', error));
-
-            // Clear the form fields after submission
-            form.reset();
-        };
-
-        // Attach the handleFormSubmit function to the form submission event
-        document.getElementById('register-form').addEventListener('submit', handleFormSubmit);
-
-        // Retrieve player data from the server on page load
-        fetch('/players')
-            .then(response => response.json())
-            .then(players => {
-                const playersTableBody = document.querySelector('#players-table tbody');
-                players.forEach(player => {
-                    const row = document.createElement('tr');
-                    const roleCell = document.createElement('td');
-                    roleCell.textContent = player.role;
-                    const nameCell = document.createElement('td');
-                    nameCell.textContent = player.name;
-                    row.appendChild(roleCell);
-                    row.appendChild(nameCell);
-                    playersTableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error fetching player data:', error));
-    </script>
+        <tbody hx-get="/players" hx-trigger="load">
+            <!-- Player rows will be loaded here -->
+        </tbody>
+    </table>
 </body>
 </html>

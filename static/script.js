@@ -99,12 +99,12 @@ function createTableRow(match) {
     return row;
 }
 
-function createTable(week, weekDate) {
+function createTable(fixtures, week) {
     const table = document.createElement("table");
-    table.classList.add("table")
+    table.classList.add("table");
     const weekDateDiv = document.createElement("div");
-    weekDateDiv.classList.add("table-week-date")
-    weekDateDiv.textContent = "Game Week " + weekDate;
+    weekDateDiv.classList.add("table-week-date");
+    weekDateDiv.textContent = "Game Week " + week;
     table.appendChild(weekDateDiv);
     const thr = document.createElement("tr");
     const thHome = document.createElement("th");
@@ -115,8 +115,8 @@ function createTable(week, weekDate) {
     thr.appendChild(thAway);
     table.appendChild(thr);
 
-    week.matches.forEach(match => {
-        const row = createTableRow(match);
+    fixtures.forEach(fixture => {
+        const row = createTableRow(fixture);
         table.appendChild(row);
     });
 
@@ -130,17 +130,23 @@ document.getElementById('show-fixtures-button').addEventListener('click', () => 
             const fixtureDiv = document.getElementById('fixtures');
             fixtureDiv.innerHTML = ''; // Clear previous content
 
-            let weekDate = 1;
-            fixtures.forEach(week => {
-                const table = createTable(week, weekDate);
+            // Group fixtures by week
+            const fixturesByWeek = fixtures.reduce((acc, fixture) => {
+                if (!acc[fixture.week]) {
+                    acc[fixture.week] = [];
+                }
+                acc[fixture.week].push(fixture);
+                return acc;
+            }, {});
+
+            // Create tables for each week
+            Object.entries(fixturesByWeek).forEach(([week, weekFixtures]) => {
+                const table = createTable(weekFixtures, week);
                 fixtureDiv.appendChild(table);
-                weekDate++;
             });
 
             // Add CSS class for spacing
             fixtureDiv.classList.add('fixture-spacing');
-
-            console.log(fixtureDiv);
         })
         .catch(error => console.error('Error fetching fixtures:', error));
 });

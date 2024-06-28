@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"encoding/json"
+	"fmt"
 	"net/http"
 	"sync"
 
@@ -28,8 +28,8 @@ func Register(mutex *sync.Mutex) http.HandlerFunc {
 			return
 		}
 
-
-		w.Header().Set("content-type", "application.json")
-		json.NewEncoder(w).Encode(player)
+		// Return HTML fragment for the new player row
+		w.Header().Set("Content-Type", "text/html")
+		fmt.Fprintf(w, "<tr><td>%s</td><td>%s</td></tr>", player.Role, player.Name)
 	}
 }

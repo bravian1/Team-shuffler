@@ -2,31 +2,46 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"bravian1/team-shuffler/src/core"
+	"bravian1/team-shuffler/src/data"
 	"bravian1/team-shuffler/src/types"
 )
 
 // Fixtures generates and returns the fixtures in JSON format
 func Fixtures(w http.ResponseWriter, r *http.Request) {
+	// Check if DB is nil
+	if DB == nil {
+		http.Error(w, "Database connection is not initialized", http.StatusInternalServerError)
+		return
+	}
+	db, err := data.ConnectDB()
+	if err != nil {
+		http.Error(w, "Database connection error", http.StatusInternalServerError)
+		return
+	}
 
 	teams := []types.Team{}
-	if err := DB.Find(&teams).Error; err != nil {
+	if err := db.Find(&teams).Error; err != nil {
 		http.Error(w, "Error fetching teams", http.StatusInternalServerError)
 		return
 	}
-	gameweeks := core.Fixture(teams)
-	for _, gw:=range gameweeks{
-		if err:=DB.Create(&gw).Error; err!=nil{
-			http.Error(w, "Error creating gameweek", http.StatusInternalServerError)
-            return
-        }
+
+	fixtures := core.Fixture(teams)
+	for _, fixture := range fixtures {
+		if err := db.Create(&fixture).Error; err != nil {
+			http.Error(w, "Error creating fixture", http.StatusInternalServerError)
+			return
+		}
 	}
 
+	content, err := json.Marshal(fixtures)
+	if err != nil {
+		http.Error(w, "Error creating fixtures json", http.StatusInternalServerError)
+		return
+	}
 
-	fmt.Println(gameweeks)
 	w.Header().Set("content-type", "application/json")
-	json.NewEncoder(w).Encode(gameweeks)
+	w.Write(content)
 }

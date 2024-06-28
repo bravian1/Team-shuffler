@@ -8,6 +8,7 @@ import (
 
 	"bravian1/team-shuffler/src/core"
 	"bravian1/team-shuffler/src/data"
+	"bravian1/team-shuffler/src/routes"
 	"bravian1/team-shuffler/src/types"
 
 	handler "bravian1/team-shuffler/src/routes"
@@ -28,9 +29,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	routes.DB = db
 	// Auto Migrate the schema
-	db.AutoMigrate(&(types.Player{}), &types.Team{}, &types.Table{}, &types.Fixture{}, &types.GameWeek{})
+	db.AutoMigrate(&(types.Player{}), &types.Team{}, &types.Table{}, &types.Fixture{})
 
 	// err := core.DownloadFile()
 	// if err != nil {
@@ -70,6 +71,7 @@ func main() {
 	http.HandleFunc("/table", handler.Table)
 	http.HandleFunc("/playerlist", handler.PlayerlistHandler)
 	http.HandleFunc("/players", handler.Players)
+
 	http.HandleFunc("/fixtures", handler.Fixtures)
 	http.HandleFunc("/shuffle", handler.Shuffle)
 	http.HandleFunc("/register", handler.Register(mutex))

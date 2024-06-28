@@ -29,14 +29,8 @@ type Table struct {
 
 type Fixture struct {
     gorm.Model
-    Home       string `gorm:"type:varchar(255);not null" json:"home"`
-    Away       string `gorm:"type:varchar(255);not null" json:"away"`
-    Date       string `gorm:"type:varchar(255);not null" json:"date"`
-    GameWeekID uint
-}
-
-type GameWeek struct {
-	gorm.Model
-	Week    int       `json:"week"`
-	Matches []Fixture `gorm:"foreignKey:GameWeekID" json:"matches"`
+    Home  string `gorm:"type:varchar(255);not null" json:"home"`
+    Away  string `gorm:"type:varchar(255);not null" json:"away"`
+    Date  string `gorm:"type:varchar(255);not null" json:"date"`
+    Week  int    `json:"week"`
 }
