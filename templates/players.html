@@ -151,7 +151,9 @@
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name">
             </div>
+            
             <button type="submit" hx-post="/register" hx-target="#players-table tbody" hx-swap="afterend">Add Player</button>
+            <button type="button" hx-post="/delete"id="deletePlayerButton">Delete Player</button>
         </form>
     </div>
 
@@ -210,6 +212,44 @@
                 });
             })
             .catch(error => console.error('Error fetching player data:', error));
+            document.getElementById('deletePlayerButton').addEventListener('click', function() {
+    var playerName = document.getElementById('playerNameInput').value.trim();
+
+    if (!playerName) {
+        alert('Player name is required');
+        return;
+    }
+
+    // Prepare the request
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/delete', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    // Define the callback function
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) { // Done
+            if (xhr.status === 200) {
+                alert('Player deleted successfully');
+                // Optionally, clear the input field
+                document.getElementById('playerNameInput').value = '';
+
+                // Remove the corresponding table row
+                var playerRow = document.querySelector('#players-table tbody tr[data-name="' + playerName + '"]');
+                if (playerRow) {
+                    playerRow.remove(); // Remove the player row
+                } else {
+                    alert('Player not found in the list.');
+                }
+            } else {
+                alert('Error deleting player: ' + xhr.responseText);
+            }
+        }
+    };
+
+    // Send the request with the player name
+    xhr.send('name=' + encodeURIComponent(playerName));
+});
+    
     </script>
 </body>
 </html>
