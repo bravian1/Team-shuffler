@@ -75,6 +75,7 @@ func main() {
 	http.HandleFunc("/fixtures", handler.Fixtures)
 	http.HandleFunc("/shuffle", handler.Shuffle)
 	http.HandleFunc("/register", handler.Register(mutex))
+	http.HandleFunc("/delete", handler.DeletePlayer(mutex))
 	http.HandleFunc("/toroot", handler.Index)
 
 	fmt.Printf("\n\n\t---[%s]---\n\n\tServer running at http://%s:%d\n\n", app, host, port)
